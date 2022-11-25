@@ -1,0 +1,33 @@
+<div class="table-responsive">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Title</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Employee</th>
+        <th>Status</th>
+        <th colspan="4" class="text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @projects.each_with_index do |project, index| %>
+        <tr>
+        <td><%= index + 1 %></td>
+        <td><%= project.title %></td>
+        <td><%= project.start_date %></td>
+        <td><%= project.end_date %></td>
+        <td><% project.employee_projects.each do |pr| %>
+
+          <%= pr.admin.name%>
+          <% end %>
+          </td>
+        <td><%= project.status %></td>
+        <td><%= link_to 'Edit', edit_admins_project_path(project), class: "btn btn-warning"%></td>
+        <td><%= button_to 'Delete', admins_project_path(project), method: :delete, data:{ confirm: 'are you sure' }, class: "btn btn-danger"%> </td>
+        <% end %>
+        </tr>
+    </tbody>
+  </table>
+</div>

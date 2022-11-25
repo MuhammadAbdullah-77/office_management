@@ -1,0 +1,33 @@
+<div class="container">
+   <div class="form-group">
+         <%= link_to 'Attendance-Mark +', new_admins_attendance_path, class: "btn btn-info" %>
+         </div><br>
+         <div class="table-responsive">
+          <table class="table table-bordered table-hover">
+           <thead>
+             <tr>
+               <th>#</th>
+               <th>Name</th>
+               <th>Date</th>
+               <th>Time</th>
+               <th>Attendance</th>
+               <th colspan="4" class="text-center">Actions</th>
+             </tr>
+           </thead>
+           <tbody>
+           <% @attendance.each_with_index do |attendance, index| %>
+               <tr>
+               <td><%= index + 1 %></td>
+               <td><%= attendance.admin.name %></td>
+               <td><%= attendance.date.strftime('%B %e')%></td>
+               <td><%= attendance.time.strftime("%I:%M%p") %></td>
+               <td><%= attendance.check_in ? "present" : "absent" %></td>
+                <td><%= link_to 'Edit', edit_admins_attendance_path(attendance), class: "btn btn-warning"%></td>
+               <td><%= button_to 'Delete', admins_attendance_path(attendance), method: :delete, data:{ confirm: 'are you sure' }, class: "btn btn-danger"%> </td>
+               <% end %>
+               </tr>
+           </tbody>
+         </table>
+       </div>
+  </div>
+       

@@ -1,0 +1,50 @@
+<div class="wrapper">
+  <div class="row">
+          <h4>New Leave</h4>
+        <div class="ibox-content">
+          <%= form_with(model: [:admins, holiday], local: true) do |f| %>
+            <div class="row">
+              <% if @holidays.errors.any? %>
+                <div id="error_explanation">
+                  <h2><%= pluralize(@holiday.errors.count, "error") %> prohibited this holiday from being saved:</h2>
+                  <ul>
+                    <% @holiday.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <%= f.label :Reason, "Reason" %><br>
+                  <%= f.text_field :Reason, required: true,  class: "form-control", placeholder: "Leave Reason" %>
+                </div>
+              </div>
+              
+              <div class="col-md-3">
+                <div class="form-group">
+                  <%= f.label :start_date, "Start Date" %><br>
+                  <%= f.text_field :start_date, required: true,  class: "form-control", type: "date" %>
+                </div>
+
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <%= f.label :end_date, "End Date" %><br>
+                  <%= f.text_field :end_date,  class: "form-control", type: "date"%>
+                </div>
+              </div>
+                <div class="col-md-8">
+                   <div class="form-group">
+                  <%= f.label :status,"Status" %><br>
+                  <%= f.select :status, Holiday.statuses.keys.map { |w| [w.humanize, w] }, class: "form-control"%>
+                  </div>
+              </div>
+            </div>
+            <td><%= f.submit 'Submit', class: "btn btn-success submit" %></td>
+            <td><%= link_to 'Back', admins_holidays_path, class: "btn btn-danger"%></td>
+          <% end %>
+        </div>
+  </div>
+</div>
+

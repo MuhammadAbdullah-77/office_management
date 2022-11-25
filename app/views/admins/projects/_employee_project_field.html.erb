@@ -1,0 +1,6 @@
+<div class="nested-fields">
+      <div class="col-md-4">
+          <%= f.label :admin_id, "Employee" %>
+          <%=  f.collection_select :admin_id, Admin.where(role_id:3), :id, :name, {}, {class: "form-control"} %>
+      </div>
+</div>

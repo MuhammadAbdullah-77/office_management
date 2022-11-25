@@ -1,0 +1,35 @@
+<div class="container">
+   <div class="form-group">
+         <%= link_to 'Apply Leave', new_admins_holiday_path, class: "btn btn-info" %>
+         </div><br>
+         <div class="table-responsive">
+          <table class="table table-bordered table-hover">
+           <thead>
+             <tr>
+               <th>#</th>
+               <th>Employee</th>
+               <th>Reason</th>
+               <th>Start Date</th>
+               <th>End Date</th>
+               <th>Status</th>
+               <th colspan="4" class="text-center">Actions</th>
+             </tr>
+           </thead>
+           <tbody>
+           <% @holidays.each_with_index do |holiday, index| %>
+               <tr>
+               <td><%= index + 1 %></td>
+               <td><%= holiday.admin.name%></td>
+               <td><%= holiday.Reason %></td>
+               <td><%= holiday.start_date.strftime('%B %e')%></td>
+               <td><%= holiday.end_date.strftime('%B %e') %></td>
+               <td><%= holiday.status %></td>
+                <td><%= link_to 'Edit', edit_admins_holiday_path(holiday), class: "btn btn-warning"%></td>
+               <td><%= button_to 'Delete', admins_holiday_path(holiday), method: :delete, data:{ confirm: 'are you sure' }, class: "btn btn-danger"%> </td>
+               <% end %>
+               </tr>
+           </tbody>
+         </table>
+       </div>
+  </div>
+       

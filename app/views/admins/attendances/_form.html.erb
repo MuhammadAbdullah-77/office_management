@@ -1,0 +1,42 @@
+<div class="wrapper">
+  <div class="row">
+      <h4>Check In</h4>
+      <div class="form-control">
+         <%= form_with(model: [:admins, attendence], local: true) do |f| %>
+            <div class="row">
+              <% if @attendance.errors.any? %>
+                <div id="error_explanation">
+                  <h2><%= pluralize(@attendance.errors.count, "error") %> prohibited this data from being saved:</h2>
+                  <ul>
+                    <% @attendance.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+             <div class="row">
+                <div class="col-md-4">
+                 <div class="form-group">
+                  <%= f.label :date, "Date" %><br>
+                  <%= f.date_select :date, selected: Date.today%>
+                 </div>
+                </div>
+               <div class="col-md-4">
+                 <div class="form-group">
+                  <%= f.label :time, "Time" %><br>
+                  <%= f.time_field :time%>
+                 </div>
+               </div>
+               <div class="col-md-4">
+                 <div class="form-group">
+                  <%= f.label :check_in, "Check_in" %><br>
+                  <%= f.check_box :check_in, {}, true%>
+                 </div>
+               </div>
+            </div>
+      </div>
+            <td><%= f.submit 'Submit', class: "btn btn-success submit" %></td>
+            <td><%= link_to 'Back', admins_attendances_path, class: "btn btn-danger"%></td>
+          <% end %>
+  </div>
+</div>

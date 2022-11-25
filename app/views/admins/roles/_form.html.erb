@@ -1,0 +1,43 @@
+<div class="wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <h3 class="m-t-none m-b">Role</h3>
+    </div>
+      <div class="row">
+        <div class="col-sm-12 b-r">
+          <%= form_with(model: [:admins, role], local: true) do |f| %>
+            <% if role.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(role.errors.count, "error") %> prohibited this permissions from being saved:</h2>
+                <ul>  
+                  <% role.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+              <div class="form-group">
+                  <%= f.label :name %>
+                  <%= f.text_field :name, class: 'form-control', disabled: true %><br/>
+              </div>
+              <div class="form-group">
+                <% @hash.each do |key, value| %>
+                  <div  id="<%= key %>">
+                    <div class="card">
+                        <h2 class="mb-0"><%= key.titleize %></h2>
+                    </div>
+                      <%= f.fields_for :permissions, value do |p|%>
+                        <%= p.check_box :value%>
+                        <%= p.object.name.split(':')[1] %>
+                      <% end %>
+                <% end %>
+              </div>
+            <div>
+              <td><%= f.submit 'Submit', class: "btn btn-success submit" %></td>
+                <td><%= link_to 'Back', admins_roles_path,  class: "btn btn-danger cancel"  %> </td>
+            </div>
+          <% end %>
+        </div>
+      </div>
+  </div>
+</div>
