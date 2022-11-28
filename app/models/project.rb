@@ -6,5 +6,6 @@ class Project < ApplicationRecord
     STATUSES = {inprogress: 0, completed: 1, archive: 2}
     enum status: STATUSES
 
+    scope :with_title,->(search) { where('title LIKE ?', "%#{search}%")}
  end
   

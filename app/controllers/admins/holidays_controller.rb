@@ -3,7 +3,16 @@ class Admins::HolidaysController < Admins::BaseController
   
     def index
       authorize [:admin, :holiday]
-        @holidays = Holiday.all
+        search = params[:search]
+        respond_to do |format|
+          if search.blank?
+            @holidays= Holiday.paginate(page: params[:page], per_page: 5)
+          else
+            @holidays = Holiday.with_date(search).paginate(page: params[:page], per_page: 5)
+          end
+          format.js
+          format.html
+        end
     end
   
     def new
@@ -36,7 +45,7 @@ class Admins::HolidaysController < Admins::BaseController
       authorize [:admin, :holiday]
       respond_to do |format|
         if @holidays.update(holidays_params)
-          format.html { redirect_to admins_holidays_path(@holidays), notice: "Leaves Updated Successfully" }
+          format.html { redirect_to admins_holidays_path, notice: "Leaves Updated Successfully" }
         else
           format.html { render :edit }
         end
@@ -59,7 +68,7 @@ class Admins::HolidaysController < Admins::BaseController
     end
   
     def holidays_params
-      params.require(:holiday).permit(:Reason, :start_date, :end_date, :admin_id, :status)
+      params.require(:holiday).permit(:reason, :start_date, :end_date, :admin_id, :status)
     end
   end
   

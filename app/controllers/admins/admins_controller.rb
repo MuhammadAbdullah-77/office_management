@@ -4,7 +4,16 @@ class Admins::AdminsController < ApplicationController
   
   def index
     authorize [:admin, :admin]
-    @admins = Admin.all
+    search = params[:search]
+    respond_to do |format|
+      if search.blank?
+        @admins = Admin.paginate(page: params[:page], per_page: 5)
+      else
+        @admins = Admin.with_name(search).paginate(page: params[:page], per_page: 5)
+      end
+      format.js
+      format.html
+    end
   end
 
   def destroy
@@ -41,9 +50,11 @@ class Admins::AdminsController < ApplicationController
 
   def create
     authorize [:admin, :admin]
+    
     @admin = Admin.new(admin_params)
     respond_to do |format|
       if @admin.save
+        AdminMailer.new_user_password(@admin).deliver
         format.html { redirect_to admins_admin_path(@admin), notice: ' Admin Added Successfully ' }
       else
         format.html { render :new }

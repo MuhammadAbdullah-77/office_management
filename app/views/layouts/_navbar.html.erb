@@ -18,7 +18,8 @@
             </li><br>
             <li>
             <td><%= link_to 'Leaves', admins_holidays_path, class: "btn btn-primary"%> </td>
-            </li>
+            </li><br>
+            <td><%= button_to "Log out", destroy_admin_session_path, method: :delete, class: "btn btn-danger"%>
         </ul>
     </div>
 </div>

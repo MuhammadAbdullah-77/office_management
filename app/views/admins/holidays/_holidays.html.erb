@@ -1,0 +1,45 @@
+<div class="container">
+   <div class="form-group">
+         <%= link_to 'Apply Leave', new_admins_holiday_path, class: "btn btn-info" %>
+         </div><br>
+         <div class="table-responsive">
+          <table class="table table-bordered table-hover">
+          <div class="col-sm-4">
+          <%= render  "layouts/search_form", address: admins_holidays_path, id: "holidays" %>
+        </div>
+           <thead>
+             <tr>
+               <th>#</th>
+               <th>Employee</th>
+               <th>Reason</th>
+               <th>Start Date</th>
+               <th>End Date</th>
+               <th>Status</th>
+               <th colspan="4" class="text-center">Actions</th>
+             </tr>
+           </thead>
+           <tbody>
+           <% @holidays.each_with_index do |holiday, index| %>
+               <tr>
+               <td><%= index + 1 %></td>
+               <td><%= holiday.admin.name%></td>
+               <td><%= holiday.reason %></td>
+               <td><%= holiday.start_date.strftime('%B %e')%></td>
+               <td><%= holiday.end_date.strftime('%B %e') %></td>
+               <td><%= holiday.status %></td>
+               <% if policy([:admin, :holiday]).edit? %>
+                <td><%= link_to 'Edit', edit_admins_holiday_path(holiday), class: "btn btn-warning"%></td>
+                <% end %>
+                <% if policy([:admin, :holiday]).destroy? %>
+               <td><%= button_to 'Delete', admins_holiday_path(holiday), method: :delete, data:{ confirm: 'are you sure' }, class: "btn btn-danger"%> </td>
+               <% end %>
+               <% end %>
+               </tr>
+           </tbody>
+         </table>
+         <div>
+      <%= will_paginate @admin , renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+    </div>
+       </div>
+  </div>
+       

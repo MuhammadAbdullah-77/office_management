@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 2022_11_24_134508) do
   end
 
   create_table "holidays", force: :cascade do |t|
-    t.string "Reason"
+    t.string "reason"
     t.date "start_date"
     t.date "end_date"
     t.integer "status"

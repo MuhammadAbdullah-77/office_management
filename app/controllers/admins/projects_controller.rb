@@ -3,21 +3,35 @@ class Admins::ProjectsController < Admins::BaseController
   
     def index
         authorize [:admin, :project]
-        @projects = Project.all
+        search = params[:search]
+        respond_to do |format|
+          if search.blank?
+            @projects = Project.paginate(page: params[:page], per_page: 5)
+          else
+            @projects = Project.with_title(search).paginate(page: params[:page], per_page: 5)
+          end
+          format.js
+          format.html
+        end
     end
   
     def new
         authorize [:admin, :project]
         @project = Project.new
          @employee_project = @project.employee_projects.build
-        
     end
   
     def create
+      employee = []
       authorize [:admin, :project]
       @project = Project.new(project_params)
       respond_to do |format|
         if @project.save
+          project = @project.employee_projects.each do |employee_project|
+          employee = employee_project.admin
+          end
+
+          AdminMailer.new_user_project(@project, employee).deliver
           format.html { redirect_to admins_projects_path, notice: "Project Added Successfully " }
         else
           format.html { render :new }

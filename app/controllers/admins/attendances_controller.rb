@@ -3,7 +3,16 @@ class Admins::AttendancesController < ApplicationController
     
     def index
         authorize [:admin, :attendance]
-        @attendance = Attendance.all
+        search = params[:search]
+        respond_to do |format|
+          if search.blank?
+            @attendance = Attendance.paginate(page: params[:page], per_page: 5)
+          else
+            @attendance = Attendance.with_date(search).paginate(page: params[:page], per_page: 5)
+          end
+          format.js
+          format.html
+        end
     end
   
     def new

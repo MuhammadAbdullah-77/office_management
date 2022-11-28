@@ -1,0 +1,6 @@
+<%= form_tag  address, method: "get", id: "#{id}_search"  do %>
+  <div class="input-group">
+    <%= search_field_tag :search, params[:search], placeholder: "Search by ", class: "form-control", style:"margin-top: 0px;" %>
+    </div>
+  </div>
+<% end %>

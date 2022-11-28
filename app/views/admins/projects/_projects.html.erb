@@ -1,5 +1,8 @@
 <div class="table-responsive">
   <table class="table table-bordered table-hover">
+  <div class="col-sm-4">
+  <%= render  "layouts/search_form", address: admins_projects_path, id: "projects" %>
+</div>
     <thead>
       <tr>
         <th>#</th>
@@ -24,10 +27,17 @@
           <% end %>
           </td>
         <td><%= project.status %></td>
+        <% if policy([:admin, :project]).edit? %>
         <td><%= link_to 'Edit', edit_admins_project_path(project), class: "btn btn-warning"%></td>
+        <% end %>
+        <% if policy([:admin, :project]).destroy? %>
         <td><%= button_to 'Delete', admins_project_path(project), method: :delete, data:{ confirm: 'are you sure' }, class: "btn btn-danger"%> </td>
+         <% end %>
         <% end %>
         </tr>
     </tbody>
   </table>
+  <div>
+      <%= will_paginate @admin , renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+    </div>
 </div>
