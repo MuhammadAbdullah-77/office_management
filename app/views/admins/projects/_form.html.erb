@@ -36,16 +36,26 @@
                   <%= f.text_field :end_date, required: true, class: "form-control", type: "date"%>
                 </div>
               </div>
+              <% if policy([:admin, :project]).edit? %>
                 <div class="col-md-8">
-                   <div class="form-group">
-                  <%= f.label :status, "Status" %><br>
-                  <%= f.select :status,  Project.statuses.keys.map { |w| [w.humanize, w] }%>
-                  </div>
                   <div class="form-group">
-                  <%= f.fields_for :employee_projects do |task|%>
-                  <%= render 'employee_project_field', f: task %>
-                  <% end %>
+                    <%= f.label :status, "Status" %><br>
+                    <%= f.select :status,  Project.statuses.keys.map { |w| [w.humanize, w] }%>
                   </div>
+                </div>
+              <% end %>
+                
+
+                  <div id="addresses">
+                    <%= f.fields_for :employee_projects do |address| %>
+                      <%= render 'employee_project_fields', f: address %>
+                    <% end %>
+            
+                    <div class="links">
+                      <%= link_to_add_association 'Add Employee', f, :employee_projects %>
+                    </div>
+                  </div>
+                </div> 
               </div>
             </div>
             <td><%= f.submit 'Submit', class: "btn btn-success submit" %></td>

@@ -34,12 +34,14 @@
                   <%= f.text_field :end_date,  class: "form-control", type: "date"%>
                 </div>
               </div>
+              <% if policy([:admin, :holiday]).edit? %>
                 <div class="col-md-8">
                    <div class="form-group">
                   <%= f.label :status,"Status" %><br>
                   <%= f.select :status, Holiday.statuses.keys.map { |w| [w.humanize, w] }, class: "form-control"%>
                   </div>
               </div>
+              <% end %>
             </div>
             <td><%= f.submit 'Submit', class: "btn btn-success submit" %></td>
             <td><%= link_to 'Back', admins_holidays_path, class: "btn btn-danger"%></td>
