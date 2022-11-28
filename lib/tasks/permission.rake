@@ -1,5 +1,5 @@
 namespace :permissions do
-    puts "This take does something useful!"
+    puts "Roles Created and Permissions Guaranted"
   
     task:role => [ :environment ] do
         Role::NAME.each do |name|

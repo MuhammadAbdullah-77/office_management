@@ -30,7 +30,6 @@ class Admins::ProjectsController < Admins::BaseController
           project = @project.employee_projects.each do |employee_project|
           employee = employee_project.admin
           end
-
           AdminMailer.new_user_project(@project, employee).deliver
           format.html { redirect_to admins_projects_path, notice: "Project Added Successfully " }
         else

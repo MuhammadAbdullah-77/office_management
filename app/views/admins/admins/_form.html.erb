@@ -40,12 +40,12 @@
     </div>
     <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autocomplete: "email", placeholder: "test@example.com" %>
+    <%= f.email_field :email, placeholder: "test@example.com" %>
     </div>
     <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em> <% end %><br />
+    <em>(<%= @minimum_password_length %> characters minimum )</em> <% end %><br />
     <%= f.password_field :password%>
     </div>
 

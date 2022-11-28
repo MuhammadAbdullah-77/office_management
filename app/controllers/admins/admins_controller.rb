@@ -1,5 +1,4 @@
 class Admins::AdminsController < ApplicationController
-  before_action :authenticate_admin!
   before_action :set_admin, only: [:edit, :show, :update, :destroy]
   
   def index
@@ -50,7 +49,6 @@ class Admins::AdminsController < ApplicationController
 
   def create
     authorize [:admin, :admin]
-    
     @admin = Admin.new(admin_params)
     respond_to do |format|
       if @admin.save

@@ -7,7 +7,7 @@ class Admin < ApplicationRecord
   message: "only allows letters" }
   validates :phone_no, presence: true, uniqueness:true   
   validates :joining_date, :dob, presence: true
-  validates :cnic, presence: true, format: { with: /[0-9]{5}-[0-9]{7}-[0-9]/, message: 'format is not correct' }, unless: -> { persisted? }
+  validates :cnic, presence: true, format: { with: /[0-9]{5}-[0-9]{7}-[0-9]/, message: 'format is not correct' }
    
   after_create :assign_default_role
   scope :with_name, ->(search) { where('first_name LIKE ? OR last_name LIKE ? OR email LIKE ?', "%#{ search }%", "%#{ search }%", "%#{ search }%") }
